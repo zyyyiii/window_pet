@@ -1,0 +1,160 @@
+.growth-panel {
+  background: rgba(30, 30, 40, 0.95);
+  border-radius: 16px;
+  padding: 20px;
+  width: 320px;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.growth-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.growth-header h2 {
+  margin: 0;
+  font-size: 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #fff;
+}
+
+.level-section {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.level-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.level-number {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.level-title {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.exp-bar-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  height: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-bar {
+  background: linear-gradient(90deg, #4ade80, #22d3ee);
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.5s ease;
+}
+
+.exp-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.stats-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-icon {
+  font-size: 24px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #888;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.interaction-section h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #888;
+}
+
+.interaction-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.interaction-buttons button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 13px;
+}
+
+.interaction-buttons button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.growth-loading,
+.growth-error {
+  text-align: center;
+  padding: 40px 20px;
+  color: #888;
+}
+
+.growth-error {
+  color: #ef4444;
+}

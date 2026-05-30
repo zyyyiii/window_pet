@@ -8,9 +8,19 @@ mod services;
 mod event_bus;
 mod utils;
 
+use modules::growth::commands::GrowthState;
+use tauri::Manager;
+
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            // 初始化成长系统状态
+            let growth_state = GrowthState::new()
+                .map_err(|e| format!("初始化成长系统失败: {}", e))?;
+            app.manage(growth_state);
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
             commands::pet_commands::feed_pet,
             commands::pet_commands::play_with_pet,
@@ -29,6 +39,13 @@ fn main() {
             commands::mood_commands::apply_mood_interaction_boost,
             commands::mood_commands::get_mood_animation_hint,
             commands::mood_commands::get_mood_emoji,
+            // 成长系统命令
+            modules::growth::commands::get_growth_snapshot,
+            modules::growth::commands::record_growth_interaction,
+            modules::growth::commands::add_learning_points,
+            modules::growth::commands::add_growth_memory,
+            modules::growth::commands::get_level_info,
+            modules::growth::commands::save_growth_data,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
