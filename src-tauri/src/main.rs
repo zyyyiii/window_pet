@@ -24,6 +24,11 @@ fn main() {
             commands::interaction_commands::get_random_bubble,
             commands::interaction_commands::get_dialogue_node,
             commands::interaction_commands::hide_bubble,
+            commands::mood_commands::get_mood_snapshot,
+            commands::mood_commands::set_mood_value,
+            commands::mood_commands::apply_mood_interaction_boost,
+            commands::mood_commands::get_mood_animation_hint,
+            commands::mood_commands::get_mood_emoji,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

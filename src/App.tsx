@@ -1,11 +1,19 @@
 import AnimationRenderer from "./components/Animation/AnimationRenderer";
 import InteractionContainer from "./components/Interaction/InteractionContainer";
+import MoodIndicator from "./components/Mood/MoodIndicator";
 import StatusPanel from "./components/Panels/StatusPanel";
 import { usePet } from "./hooks/usePet";
+import { useMood } from "./hooks/useMood";
 import "./styles/interaction.css";
+import "./styles/mood.css";
 
 function App() {
   const { petStatus, isLoading, error, feedPet, playWithPet } = usePet();
+  const { snapshot: moodSnapshot } = useMood({
+    onStateChange: (newState, oldState) => {
+      console.log(`Mood changed: ${oldState} -> ${newState}`);
+    },
+  });
 
   if (isLoading) {
     return <div className="loading">Loading...</div>;
@@ -44,10 +52,11 @@ function App() {
           state={currentState}
           fallback={
             <div className="pet-emoji">
-              {currentState === "happy" ? "😺" : "🐱"}
+              {moodSnapshot?.emoji || (currentState === "happy" ? "😺" : "🐱")}
             </div>
           }
         />
+        <MoodIndicator snapshot={moodSnapshot} />
         <StatusPanel status={petStatus} />
       </div>
     </InteractionContainer>

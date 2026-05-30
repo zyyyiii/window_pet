@@ -2,6 +2,7 @@ pub mod pet;
 pub mod state_machine;
 pub mod animation;
 pub mod interaction;
+pub mod mood;
 pub mod ai;
 pub mod monitor;
 pub mod reminder;
