@@ -17,6 +17,8 @@ fn main() {
             commands::pet_commands::pet_status,
             commands::pet_commands::get_pet_status,
             commands::system_commands::get_system_info,
+            commands::animation_commands::set_animation,
+            commands::animation_commands::get_available_animations,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

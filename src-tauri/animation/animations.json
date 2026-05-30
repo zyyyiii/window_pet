@@ -1,0 +1,88 @@
+{
+  "version": "1.0",
+  "default_animation": "idle",
+  "sprite_sheets": {
+    "idle": {
+      "type": "sprite_sheet",
+      "image": "idle.png",
+      "frame_width": 128,
+      "frame_height": 128,
+      "frame_count": 4,
+      "frame_rate": 8,
+      "loop": true,
+      "columns": 4
+    },
+    "walk": {
+      "type": "sprite_sheet",
+      "image": "walk.png",
+      "frame_width": 128,
+      "frame_height": 128,
+      "frame_count": 6,
+      "frame_rate": 10,
+      "loop": true,
+      "columns": 6
+    },
+    "sleep": {
+      "type": "sprite_sheet",
+      "image": "sleep.png",
+      "frame_width": 128,
+      "frame_height": 128,
+      "frame_count": 4,
+      "frame_rate": 4,
+      "loop": true,
+      "columns": 4
+    },
+    "look": {
+      "type": "sprite_sheet",
+      "image": "look.png",
+      "frame_width": 128,
+      "frame_height": 128,
+      "frame_count": 4,
+      "frame_rate": 6,
+      "loop": true,
+      "columns": 4
+    },
+    "happy": {
+      "type": "sprite_sheet",
+      "image": "happy.png",
+      "frame_width": 128,
+      "frame_height": 128,
+      "frame_count": 5,
+      "frame_rate": 10,
+      "loop": true,
+      "columns": 5
+    }
+  },
+  "state_mapping": {
+    "idle": "idle",
+    "happy": "happy",
+    "hungry": "look",
+    "sleepy": "sleep",
+    "playing": "walk",
+    "studying": "look",
+    "monitoring": "look",
+    "talking": "happy"
+  },
+  "transitions": {
+    "idle_to_walk": {
+      "from": "idle",
+      "to": "walk",
+      "duration": 200
+    },
+    "walk_to_idle": {
+      "from": "walk",
+      "to": "idle",
+      "duration": 200
+    },
+    "idle_to_sleep": {
+      "from": "idle",
+      "to": "sleep",
+      "duration": 500
+    },
+    "sleep_to_idle": {
+      "from": "sleep",
+      "to": "idle",
+      "duration": 300
+    }
+  }
+}

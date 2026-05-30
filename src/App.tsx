@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PetContainer from "./components/Pet/PetContainer";
+import AnimationRenderer from "./components/Animation/AnimationRenderer";
 import StatusPanel from "./components/Panels/StatusPanel";
 import DialogPanel from "./components/Panels/DialogPanel";
 import { usePet } from "./hooks/usePet";
@@ -16,17 +16,32 @@ function App() {
     return <div className="error">Error: {error}</div>;
   }
 
+  const currentState = petStatus?.state || "idle";
+
   return (
     <div className="app-container">
-      <PetContainer 
-        status={petStatus} 
-        onFeed={feedPet}
-        onPlay={playWithPet}
-        onTalk={() => setShowDialog(true)}
+      <AnimationRenderer
+        state={currentState}
+        fallback={
+          <div className="pet-emoji">
+            {currentState === "happy" ? "😺" : "🐱"}
+          </div>
+        }
       />
+      <div className="pet-controls">
+        <button onClick={feedPet} title="Feed">
+          🍕
+        </button>
+        <button onClick={playWithPet} title="Play">
+          🎮
+        </button>
+        <button onClick={() => setShowDialog(true)} title="Talk">
+          💬
+        </button>
+      </div>
       <StatusPanel status={petStatus} />
       {showDialog && (
-        <DialogPanel 
+        <DialogPanel
           onClose={() => setShowDialog(false)}
           petName={petStatus?.name || "Pet"}
         />
