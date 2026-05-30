@@ -1,0 +1,5 @@
+# 过滤 Rust 编译缓存
+/src-tauri/target/
+
+# 过滤 Node.js 依赖
+/node_modules/
