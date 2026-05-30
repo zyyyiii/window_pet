@@ -1,12 +1,11 @@
-import { useState } from "react";
 import AnimationRenderer from "./components/Animation/AnimationRenderer";
+import InteractionContainer from "./components/Interaction/InteractionContainer";
 import StatusPanel from "./components/Panels/StatusPanel";
-import DialogPanel from "./components/Panels/DialogPanel";
 import { usePet } from "./hooks/usePet";
+import "./styles/interaction.css";
 
 function App() {
   const { petStatus, isLoading, error, feedPet, playWithPet } = usePet();
-  const [showDialog, setShowDialog] = useState(false);
 
   if (isLoading) {
     return <div className="loading">Loading...</div>;
@@ -18,35 +17,40 @@ function App() {
 
   const currentState = petStatus?.state || "idle";
 
+  const handleMenuAction = (action: string) => {
+    switch (action) {
+      case "feed":
+        feedPet();
+        break;
+      case "play":
+        playWithPet();
+        break;
+      case "talk":
+        // Dialogue is handled by InteractionContainer
+        break;
+      case "settings":
+        // TODO: Show settings
+        break;
+      case "exit":
+        // TODO: Exit app
+        break;
+    }
+  };
+
   return (
-    <div className="app-container">
-      <AnimationRenderer
-        state={currentState}
-        fallback={
-          <div className="pet-emoji">
-            {currentState === "happy" ? "😺" : "🐱"}
-          </div>
-        }
-      />
-      <div className="pet-controls">
-        <button onClick={feedPet} title="Feed">
-          🍕
-        </button>
-        <button onClick={playWithPet} title="Play">
-          🎮
-        </button>
-        <button onClick={() => setShowDialog(true)} title="Talk">
-          💬
-        </button>
-      </div>
-      <StatusPanel status={petStatus} />
-      {showDialog && (
-        <DialogPanel
-          onClose={() => setShowDialog(false)}
-          petName={petStatus?.name || "Pet"}
+    <InteractionContainer onMenuAction={handleMenuAction}>
+      <div className="app-container">
+        <AnimationRenderer
+          state={currentState}
+          fallback={
+            <div className="pet-emoji">
+              {currentState === "happy" ? "😺" : "🐱"}
+            </div>
+          }
         />
-      )}
-    </div>
+        <StatusPanel status={petStatus} />
+      </div>
+    </InteractionContainer>
   );
 }
 

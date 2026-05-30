@@ -19,6 +19,11 @@ fn main() {
             commands::system_commands::get_system_info,
             commands::animation_commands::set_animation,
             commands::animation_commands::get_available_animations,
+            commands::interaction_commands::handle_interaction,
+            commands::interaction_commands::get_touch_response,
+            commands::interaction_commands::get_random_bubble,
+            commands::interaction_commands::get_dialogue_node,
+            commands::interaction_commands::hide_bubble,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
