@@ -84,6 +84,28 @@ impl InteractionManager {
                 action: "talk".to_string(),
                 disabled: false,
             },
+            // 学习模式菜单项
+            MenuItem {
+                id: "study_mode".to_string(),
+                label: "进入学习模式".to_string(),
+                icon: Some("📚".to_string()),
+                action: "study_mode".to_string(),
+                disabled: false,
+            },
+            MenuItem {
+                id: "break_mode".to_string(),
+                label: "进入休息模式".to_string(),
+                icon: Some("☕".to_string()),
+                action: "break_mode".to_string(),
+                disabled: false,
+            },
+            MenuItem {
+                id: "normal_mode".to_string(),
+                label: "恢复普通模式".to_string(),
+                icon: Some("😺".to_string()),
+                action: "normal_mode".to_string(),
+                disabled: false,
+            },
             MenuItem {
                 id: "settings".to_string(),
                 label: "设置".to_string(),

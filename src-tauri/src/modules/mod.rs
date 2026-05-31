@@ -8,3 +8,4 @@ pub mod monitor;
 pub mod reminder;
 pub mod conversation;
 pub mod growth;
+pub mod study;

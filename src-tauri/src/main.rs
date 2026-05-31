@@ -9,6 +9,7 @@ mod event_bus;
 mod utils;
 
 use modules::growth::commands::GrowthState;
+use modules::study::commands::StudyState;
 use tauri::Manager;
 
 fn main() {
@@ -19,6 +20,11 @@ fn main() {
             let growth_state = GrowthState::new()
                 .map_err(|e| format!("初始化成长系统失败: {}", e))?;
             app.manage(growth_state);
+
+            // 初始化学习系统状态
+            let study_state = StudyState::new();
+            app.manage(study_state);
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
@@ -46,6 +52,19 @@ fn main() {
             modules::growth::commands::add_growth_memory,
             modules::growth::commands::get_level_info,
             modules::growth::commands::save_growth_data,
+            // 学习系统命令
+            modules::study::commands::get_study_snapshot,
+            modules::study::commands::set_study_mode,
+            modules::study::commands::check_study_reminder,
+            modules::study::commands::get_study_dialogue,
+            modules::study::commands::get_study_duration,
+            modules::study::commands::get_break_duration,
+            modules::study::commands::update_study_timer,
+            modules::study::commands::set_study_reminder_config,
+            modules::study::commands::get_study_reminder_config,
+            modules::study::commands::add_study_reminder_message,
+            modules::study::commands::add_break_reminder_message,
+            modules::study::commands::add_encouragement_message,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

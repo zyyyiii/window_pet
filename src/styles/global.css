@@ -464,3 +464,37 @@ body {
 .error {
   color: var(--danger-color);
 }
+
+/* Study Indicator */
+.study-indicator {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 8px 12px;
+  z-index: 100;
+}
+
+.study-indicator-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.study-mode-icon {
+  font-size: 18px;
+}
+
+.study-mode-name {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.study-timer {
+  font-family: monospace;
+  color: var(--text-light);
+  font-size: 13px;
+}
