@@ -8,6 +8,7 @@ mod services;
 mod event_bus;
 mod utils;
 
+use modules::activity::commands::ActivityState;
 use modules::growth::commands::GrowthState;
 use modules::study::commands::StudyState;
 use tauri::Manager;
@@ -24,6 +25,10 @@ fn main() {
             // 初始化学习系统状态
             let study_state = StudyState::new();
             app.manage(study_state);
+
+            // 初始化活动检测状态
+            let activity_state = ActivityState::new();
+            app.manage(activity_state);
 
             Ok(())
         })
@@ -65,6 +70,14 @@ fn main() {
             modules::study::commands::add_study_reminder_message,
             modules::study::commands::add_break_reminder_message,
             modules::study::commands::add_encouragement_message,
+            // 活动检测命令
+            modules::activity::commands::get_activity_analysis,
+            modules::activity::commands::get_last_activity,
+            modules::activity::commands::set_activity_detection_enabled,
+            modules::activity::commands::is_activity_detection_enabled,
+            modules::activity::commands::get_activity_rules,
+            modules::activity::commands::add_activity_rule,
+            modules::activity::commands::remove_activity_rule,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
