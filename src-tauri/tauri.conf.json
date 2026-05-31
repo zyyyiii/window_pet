@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "identifier": "com.desktop-pet.app",
   "build": {
-    "beforeDevCommand": "npm run dev",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "",
+    "devUrl": "http://127.0.0.1:1430",
+    "beforeBuildCommand": "",
     "frontendDist": "../dist"
   },
   "app": {
@@ -14,11 +14,12 @@
         "title": "Desktop Pet",
         "width": 300,
         "height": 400,
+        "center": true,
         "resizable": true,
         "fullscreen": false,
-        "decorations": false,
-        "transparent": true,
-        "alwaysOnTop": true
+        "decorations": true,
+        "transparent": false,
+        "alwaysOnTop": false
       }
     ],
     "security": {

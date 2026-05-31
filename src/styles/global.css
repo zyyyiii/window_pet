@@ -23,14 +23,24 @@ body {
   color: var(--text-color);
   user-select: none;
   -webkit-user-select: none;
+  overflow: hidden;
 }
 
 .app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
+  justify-content: center;
+  padding: 20px;
   min-height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  cursor: grab;
+}
+
+.app-container:active {
+  cursor: grabbing;
 }
 
 /* Pet Styles */
@@ -459,6 +469,13 @@ body {
   align-items: center;
   height: 100vh;
   font-size: 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 40px;
+}
+
+.loading {
+  color: var(--primary-color);
 }
 
 .error {

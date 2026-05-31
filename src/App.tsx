@@ -12,6 +12,8 @@ import "./styles/interaction.css";
 import "./styles/mood.css";
 
 function App() {
+  console.log("App 组件开始渲染");
+
   const { petStatus, isLoading, error, feedPet, playWithPet } = usePet();
   const { snapshot: moodSnapshot } = useMood({
     onStateChange: (newState, oldState) => {
@@ -20,6 +22,8 @@ function App() {
   });
   const { snapshot: studySnapshot, setMode: setStudyMode } = useStudy();
   const { analysis: activityAnalysis } = useActivity(10000);
+
+  console.log("App 状态:", { isLoading, error, petStatus });
 
   // 自动同步学习模式（基于活动检测）
   const lastAutoState = useRef<ActivityState | null>(null);
@@ -61,12 +65,43 @@ function App() {
     }
   }, [activityAnalysis, studySnapshot?.mode, setStudyMode]);
 
+  // 始终显示的基本内容，用于调试
+  const debugContent = (
+    <div style={{
+      position: 'absolute',
+      top: 10,
+      right: 10,
+      background: 'rgba(0,0,0,0.7)',
+      color: 'white',
+      padding: '4px 8px',
+      borderRadius: 4,
+      fontSize: 11,
+      zIndex: 9999,
+      maxWidth: 200,
+      wordBreak: 'break-all'
+    }}>
+      调试: {isLoading ? '加载中' : error ? `错误: ${error}` : '正常'}
+    </div>
+  );
+
   if (isLoading) {
-    return <div className="loading">Loading...</div>;
+    return (
+      <div className="loading" style={{ background: 'rgba(255,255,255,0.95)' }}>
+        {debugContent}
+        <div style={{ fontSize: 24, marginBottom: 10 }}>😺</div>
+        <div>Loading...</div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="error">Error: {error}</div>;
+    return (
+      <div className="error" style={{ background: 'rgba(255,255,255,0.95)' }}>
+        {debugContent}
+        <div style={{ fontSize: 24, marginBottom: 10 }}>😿</div>
+        <div>Error: {error}</div>
+      </div>
+    );
   }
 
   const currentState = petStatus?.state || "idle";
@@ -102,7 +137,22 @@ function App() {
 
   return (
     <InteractionContainer onMenuAction={handleMenuAction}>
-      <div className="app-container">
+      <div className="app-container" data-tauri-drag-region>
+        {/* 调试信息 */}
+        <div style={{
+          position: 'absolute',
+          top: 5,
+          left: 5,
+          fontSize: 10,
+          color: '#666',
+          background: 'rgba(255,255,255,0.8)',
+          padding: '2px 4px',
+          borderRadius: 4,
+          zIndex: 1000
+        }}>
+          状态: {currentState} | 加载: {isLoading ? '是' : '否'}
+        </div>
+
         <AnimationRenderer
           state={currentState}
           fallback={

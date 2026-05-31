@@ -9,26 +9,46 @@ mod event_bus;
 mod utils;
 
 use modules::activity::commands::ActivityState;
+use modules::behavior::commands::BehaviorState;
 use modules::growth::commands::GrowthState;
 use modules::study::commands::StudyState;
 use tauri::Manager;
+use tauri::{WebviewUrl, WebviewWindowBuilder};
 
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
         .setup(|app| {
-            // 初始化成长系统状态
             let growth_state = GrowthState::new()
-                .map_err(|e| format!("初始化成长系统失败: {}", e))?;
+                .map_err(|e| format!("failed to initialize growth state: {e}"))?;
             app.manage(growth_state);
 
-            // 初始化学习系统状态
             let study_state = StudyState::new();
             app.manage(study_state);
 
-            // 初始化活动检测状态
             let activity_state = ActivityState::new();
             app.manage(activity_state);
+
+            let behavior_state = BehaviorState::new();
+            app.manage(behavior_state);
+
+            let window = match app.get_webview_window("main") {
+                Some(window) => window,
+                None => WebviewWindowBuilder::new(app, "main", WebviewUrl::default())
+                    .title("Desktop Pet")
+                    .inner_size(300.0, 400.0)
+                    .center()
+                    .resizable(true)
+                    .decorations(true)
+                    .transparent(false)
+                    .always_on_top(false)
+                    .build()
+                    .map_err(|e| format!("failed to create main window: {e}"))?,
+            };
+
+            let _ = window.show();
+            let _ = window.set_focus();
+            let _ = window.center();
 
             Ok(())
         })
@@ -50,14 +70,12 @@ fn main() {
             commands::mood_commands::apply_mood_interaction_boost,
             commands::mood_commands::get_mood_animation_hint,
             commands::mood_commands::get_mood_emoji,
-            // 成长系统命令
             modules::growth::commands::get_growth_snapshot,
             modules::growth::commands::record_growth_interaction,
             modules::growth::commands::add_learning_points,
             modules::growth::commands::add_growth_memory,
             modules::growth::commands::get_level_info,
             modules::growth::commands::save_growth_data,
-            // 学习系统命令
             modules::study::commands::get_study_snapshot,
             modules::study::commands::set_study_mode,
             modules::study::commands::check_study_reminder,
@@ -70,7 +88,6 @@ fn main() {
             modules::study::commands::add_study_reminder_message,
             modules::study::commands::add_break_reminder_message,
             modules::study::commands::add_encouragement_message,
-            // 活动检测命令
             modules::activity::commands::get_activity_analysis,
             modules::activity::commands::get_last_activity,
             modules::activity::commands::set_activity_detection_enabled,
@@ -78,6 +95,15 @@ fn main() {
             modules::activity::commands::get_activity_rules,
             modules::activity::commands::add_activity_rule,
             modules::activity::commands::remove_activity_rule,
+            modules::behavior::commands::generate_behavior_dialogue,
+            modules::behavior::commands::generate_behavior_reminder,
+            modules::behavior::commands::get_behavior_suggestion,
+            modules::behavior::commands::get_behavior_providers,
+            modules::behavior::commands::get_active_behavior_provider,
+            modules::behavior::commands::switch_behavior_provider,
+            modules::behavior::commands::register_ai_provider,
+            modules::behavior::commands::get_behavior_config,
+            modules::behavior::commands::update_behavior_config,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

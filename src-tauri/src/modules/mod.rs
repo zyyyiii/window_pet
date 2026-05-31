@@ -10,3 +10,4 @@ pub mod conversation;
 pub mod growth;
 pub mod study;
 pub mod activity;
+pub mod behavior;
